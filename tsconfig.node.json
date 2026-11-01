@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "outDir": "dist-electron",
+    "rootDir": ".",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  },
+  "include": [
+    "electron",
+    "shared",
+    "core",
+    "minecraft",
+    "java",
+    "accounts",
+    "instances",
+    "mods",
+    "downloads",
+    "settings",
+    "diagnostics"
+  ]
+}

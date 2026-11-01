@@ -1,0 +1,35 @@
+name: Windows validation and artifacts
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+      - run: npm ci
+      - run: npx install-electron --no
+      - run: npm test
+      - run: npm run build
+      - run: node scripts/electron-smoke.cjs
+      - run: npm run dist
+      - run: npm run source
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Averiq-Launcher-Windows-x64
+          path: |
+            release/*.exe
+            release/*source.zip
+            artifacts/averiq-home.png
